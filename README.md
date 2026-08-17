@@ -1,3 +1,5 @@
+[![ci](https://github.com/devsavsis/anisav/actions/workflows/ci.yml/badge.svg)](https://github.com/devsavsis/anisav/actions/workflows/ci.yml)
+
 Я че умный?
 
 # anisav
