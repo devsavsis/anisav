@@ -17,7 +17,6 @@ export default function LoginModal({ onClose }: { onClose: () => void }) {
       await login(loginValue, password, remember)
       onClose()
     } catch {
-      // error is surfaced via context
     } finally {
       setSubmitting(false)
     }
@@ -33,15 +32,15 @@ export default function LoginModal({ onClose }: { onClose: () => void }) {
         onClick={onClose}
       >
         <motion.form
-          initial={{ opacity: 0, scale: 0.95, y: 10 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 10 }}
-          transition={{ type: 'spring', duration: 0.35, bounce: 0.25 }}
+          initial={{ opacity: 0, scale: 0.96, y: 10, filter: 'blur(6px)' }}
+          animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
+          exit={{ opacity: 0, scale: 0.97, y: 6, filter: 'blur(4px)' }}
+          transition={{ type: 'spring', duration: 0.4, bounce: 0.1 }}
           onClick={(e) => e.stopPropagation()}
           onSubmit={onSubmit}
-          className="my-auto max-h-[90vh] w-full max-w-sm overflow-y-auto rounded-2xl bg-surface-raised p-6 shadow-2xl"
+          className="my-auto max-h-[90vh] w-full max-w-sm overflow-y-auto rounded-2xl border border-white/10 bg-surface-raised p-6 shadow-2xl"
         >
-          <h2 className="text-lg font-bold">Вход в AniLiberty</h2>
+          <h2 className="text-lg font-bold tracking-tight">Вход в AniLiberty</h2>
           <p className="mt-1 text-xs text-white/40">
             Используй логин и пароль своего аккаунта на aniliberty.top
           </p>
@@ -72,13 +71,13 @@ export default function LoginModal({ onClose }: { onClose: () => void }) {
                 type="checkbox"
                 checked={remember}
                 onChange={(e) => setRemember(e.target.checked)}
-                className="h-3.5 w-3.5 accent-[#fe3635]"
+                className="h-3.5 w-3.5 accent-[#FF3D5A]"
               />
               Запомнить меня
             </label>
           </div>
 
-          {error && <p className="mt-3 text-xs text-red-400">{error}</p>}
+          {error && <p className="mt-3 text-xs text-accent">{error}</p>}
 
           <div className="mt-5 flex gap-2">
             <button
@@ -91,7 +90,7 @@ export default function LoginModal({ onClose }: { onClose: () => void }) {
             <button
               type="submit"
               disabled={submitting || !loginValue || !password}
-              className="flex-1 rounded-full bg-accent py-2 text-sm font-semibold hover:bg-accent-hover disabled:opacity-40"
+              className="flex-1 rounded-full bg-accent-gradient py-2 text-sm font-semibold transition-transform hover:scale-[1.02] disabled:opacity-40 disabled:hover:scale-100"
             >
               {submitting ? '...' : 'Войти'}
             </button>

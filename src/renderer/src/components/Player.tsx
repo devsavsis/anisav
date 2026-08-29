@@ -55,7 +55,6 @@ export default function Player({ episode, resumeAt, onProgress, onEnded }: Props
     setQuality(available[0]?.key)
     skippedRanges.current = new Set()
     didAutoFullscreen.current = false
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [episode.id])
 
   useEffect(() => {
@@ -73,10 +72,6 @@ export default function Player({ episode, resumeAt, onProgress, onEnded }: Props
       })
       hls.loadSource(src)
       hls.attachMedia(video)
-      // Network/media hiccups (CDN edge blip, transient segment fetch failure)
-      // are fatal by default in hls.js unless the app recovers them — without
-      // this, a single dropped segment can stall playback or force a reload
-      // that jumps back to position 0 instead of resuming where it was.
       hls.on(Hls.Events.ERROR, (_event, data) => {
         if (!data.fatal) return
         switch (data.type) {
@@ -106,7 +101,6 @@ export default function Player({ episode, resumeAt, onProgress, onEnded }: Props
       hlsRef.current?.destroy()
       hlsRef.current = null
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quality, episode.id])
 
   const reportProgress = useCallback(() => {
@@ -222,12 +216,10 @@ export default function Player({ episode, resumeAt, onProgress, onEnded }: Props
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [duration])
 
   useEffect(() => {
     return () => reportProgress()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [episode.id])
 
   return (
@@ -253,7 +245,7 @@ export default function Player({ episode, resumeAt, onProgress, onEnded }: Props
       {showSkip && (
         <button
           onClick={skip}
-          className="absolute bottom-20 right-4 flex items-center gap-1.5 rounded bg-black/80 px-4 py-2 text-sm font-semibold backdrop-blur transition-colors hover:bg-accent"
+          className="absolute bottom-20 right-4 flex items-center gap-1.5 rounded-lg bg-black/70 px-4 py-2 text-sm font-semibold backdrop-blur-md transition-colors hover:bg-accent-gradient"
         >
           <SkipIcon />
           Пропустить {showSkip === 'opening' ? 'опенинг' : 'эндинг'}
@@ -320,7 +312,7 @@ export default function Player({ episode, resumeAt, onProgress, onEnded }: Props
               {showSettings && (
                 <div
                   onMouseLeave={() => setShowSettings(false)}
-                  className="absolute bottom-full right-0 mb-2 w-64 space-y-3 rounded-xl bg-surface-raised p-3 text-sm shadow-2xl"
+                  className="glass absolute bottom-full right-0 mb-2 w-64 space-y-3 rounded-xl border border-white/10 p-3 text-sm shadow-2xl"
                 >
                   {available.length > 1 && (
                     <SettingsRow label="Качество">
@@ -329,8 +321,8 @@ export default function Player({ episode, resumeAt, onProgress, onEnded }: Props
                           <button
                             key={q.key}
                             onClick={() => setQuality(q.key)}
-                            className={`rounded px-1.5 py-0.5 text-xs ${
-                              quality === q.key ? 'bg-accent' : 'bg-white/10 hover:bg-white/20'
+                            className={`rounded px-1.5 py-0.5 text-xs font-semibold ${
+                              quality === q.key ? 'bg-accent-gradient' : 'bg-white/10 hover:bg-white/20'
                             }`}
                           >
                             {q.label}
@@ -340,8 +332,8 @@ export default function Player({ episode, resumeAt, onProgress, onEnded }: Props
                     </SettingsRow>
                   )}
 
-                  <div className="border-t border-white/10 pt-2 text-xs text-white/40">
-                    Горячие клавиши: Пробел — пауза, ←/→ — перемотка 10с, F — экран, M — звук
+                  <div className="border-t border-white/10 pt-2 font-mono text-[11px] text-white/40">
+                    Пробел — пауза, ←/→ — перемотка 10с, F — экран, M — звук
                   </div>
 
                   <div className="space-y-2 border-t border-white/10 pt-2">
@@ -406,7 +398,7 @@ function ToggleRow({
       <span className="text-white/70">{label}</span>
       <span
         className={`relative h-4 w-8 shrink-0 rounded-full transition-colors ${
-          checked ? 'bg-accent' : 'bg-white/15'
+          checked ? 'bg-accent-gradient' : 'bg-white/15'
         }`}
       >
         <span

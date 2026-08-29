@@ -87,8 +87,8 @@ export default function Catalog() {
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-6">
-      <h1 className="mb-4 text-xl font-bold">
-        {searchQ ? `Поиск: "${searchQ}"` : 'Каталог'}
+      <h1 className="mb-4 text-xl font-bold tracking-tight">
+        {searchQ ? `Поиск: «${searchQ}»` : 'Каталог'}
       </h1>
 
       <div className="flex gap-6">
@@ -198,17 +198,17 @@ export default function Catalog() {
                   <button
                     disabled={page <= 1}
                     onClick={() => setPage((p) => p - 1)}
-                    className="rounded bg-white/5 px-3 py-1.5 disabled:opacity-30"
+                    className="rounded-full bg-white/5 px-4 py-1.5 transition-colors hover:bg-white/10 disabled:opacity-30"
                   >
                     Назад
                   </button>
-                  <span className="text-white/50">
+                  <span className="font-mono text-xs tabular-nums text-white/50">
                     {page} / {totalPages}
                   </span>
                   <button
                     disabled={page >= totalPages}
                     onClick={() => setPage((p) => p + 1)}
-                    className="rounded bg-white/5 px-3 py-1.5 disabled:opacity-30"
+                    className="rounded-full bg-white/5 px-4 py-1.5 transition-colors hover:bg-white/10 disabled:opacity-30"
                   >
                     Далее
                   </button>
@@ -225,7 +225,7 @@ export default function Catalog() {
 function FilterGroup({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h3 className="mb-2 text-xs font-bold uppercase tracking-wide text-white/40">{title}</h3>
+      <h3 className="mono-label mb-2 text-white/40">{title}</h3>
       {children}
     </div>
   )
@@ -246,7 +246,7 @@ function Check({
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        className="h-3.5 w-3.5 accent-[#fe3635]"
+        className="h-3.5 w-3.5 accent-[#FF3D5A]"
       />
       <span className="text-xs">{label}</span>
     </label>

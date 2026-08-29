@@ -34,7 +34,7 @@ export default function MyLists() {
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-6">
-      <h1 className="mb-4 text-xl font-bold">Мои списки</h1>
+      <h1 className="mb-4 text-xl font-bold tracking-tight">Мои списки</h1>
 
       <div className="mb-6 flex flex-wrap gap-2 border-b border-white/5 pb-3">
         {TABS.map((t) => (
@@ -49,7 +49,7 @@ export default function MyLists() {
               <motion.span
                 layoutId="mylists-tab-pill"
                 transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                className="absolute inset-0 rounded-full bg-accent"
+                className="absolute inset-0 rounded-full bg-accent-gradient"
               />
             )}
             <span className="relative">{t.label}</span>

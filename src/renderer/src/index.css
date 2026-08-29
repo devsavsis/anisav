@@ -19,18 +19,27 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #333;
+  background: #2a2a3a;
   border-radius: 6px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #444;
+  background: #383850;
 }
 
 .poster-card {
-  @apply relative overflow-hidden rounded-lg bg-surface-card transition-transform duration-200 ease-out;
+  @apply relative overflow-hidden rounded-xl bg-surface-card transition-all duration-200 ease-out;
 }
 .poster-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
+  box-shadow: 0 16px 32px -14px rgba(255, 61, 90, 0.35);
+}
+
+.mono-label {
+  @apply font-mono text-[10px] font-bold uppercase tracking-widest;
+}
+
+.glass {
+  @apply bg-surface/80 backdrop-blur-xl;
 }
 
 .line-clamp-2 {
@@ -47,7 +56,7 @@ body {
   border-radius: 2px;
   background: linear-gradient(
     to right,
-    #fe3635 var(--progress, 0%),
+    #ff3d5a var(--progress, 0%),
     rgba(255, 255, 255, 0.25) var(--progress, 0%)
   );
   outline: none;
@@ -59,7 +68,7 @@ body {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #fe3635;
+  background: #ff3d5a;
   cursor: pointer;
   transition: transform 0.15s ease;
 }
@@ -71,11 +80,11 @@ body {
   height: 12px;
   border: none;
   border-radius: 50%;
-  background: #fe3635;
+  background: #ff3d5a;
   cursor: pointer;
 }
 .player-seek::-moz-range-progress {
-  background: #fe3635;
+  background: #ff3d5a;
   height: 4px;
   border-radius: 2px;
 }

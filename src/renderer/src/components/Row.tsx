@@ -11,7 +11,7 @@ export default function Row({ title, releases }: { title: string; releases: Rele
   if (!releases.length) return null
   return (
     <section className="mx-auto max-w-7xl px-6 py-5">
-      <h2 className="mb-3 text-lg font-bold">{title}</h2>
+      <h2 className="mb-3 text-lg font-bold tracking-tight">{title}</h2>
       <motion.div
         variants={container}
         initial="hidden"

@@ -22,7 +22,7 @@ export default function Genres() {
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-6">
-      <h1 className="mb-4 text-xl font-bold">Жанры</h1>
+      <h1 className="mb-4 text-xl font-bold tracking-tight">Жанры</h1>
       <motion.div
         variants={container}
         initial="hidden"
@@ -48,9 +48,9 @@ export default function Genres() {
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
               <div className="relative flex h-full flex-col justify-end p-3">
-                <p className="font-semibold">{g.name}</p>
+                <p className="font-semibold tracking-tight">{g.name}</p>
                 {g.total_releases != null && (
-                  <p className="text-xs text-white/50">{g.total_releases} тайтлов</p>
+                  <p className="mono-label text-white/50">{g.total_releases} тайтлов</p>
                 )}
               </div>
             </Link>

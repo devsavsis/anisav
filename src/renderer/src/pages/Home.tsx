@@ -50,16 +50,16 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.15 }}
             className="relative mx-auto flex h-full max-w-7xl flex-col justify-end px-6 pb-8"
           >
-            <span className="mb-2 w-fit rounded bg-accent px-2 py-0.5 text-xs font-bold uppercase">
+            <span className="mono-label mb-2 w-fit rounded bg-accent-gradient px-2 py-1 text-white">
               Новинка
             </span>
-            <h1 className="max-w-xl text-3xl font-extrabold leading-tight drop-shadow">
+            <h1 className="max-w-xl text-3xl font-extrabold leading-tight tracking-tight drop-shadow">
               {hero.name.main}
             </h1>
             <p className="mt-2 max-w-xl line-clamp-2 text-sm text-white/60">{hero.description}</p>
             <Link
               to={`/title/${hero.alias || hero.id}`}
-              className="mt-4 w-fit rounded-full bg-accent px-5 py-2 text-sm font-semibold transition-colors hover:bg-accent-hover"
+              className="mt-4 w-fit rounded-full bg-accent-gradient px-5 py-2 text-sm font-semibold transition-transform hover:scale-105"
             >
               Смотреть
             </Link>
@@ -90,13 +90,13 @@ export default function Home() {
                     />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
                     <div className="absolute inset-x-0 bottom-0 p-2">
-                      <p className="mb-1 truncate text-[10px] font-medium text-white/70">
+                      <p className="mono-label mb-1 truncate text-white/80">
                         Серия {c.episode.ordinal}
                       </p>
                       {c.episode.duration && (
                         <div className="h-0.5 w-full overflow-hidden rounded bg-black/40">
                           <div
-                            className="h-full bg-accent"
+                            className="h-full bg-accent-gradient"
                             style={{ width: `${Math.min(100, (c.time / c.episode.duration) * 100)}%` }}
                           />
                         </div>

@@ -13,8 +13,8 @@ export default function Wishlist() {
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-6">
-      <h1 className="mb-1 text-xl font-bold">Понравилось</h1>
-      <p className="mb-4 text-xs text-white/40">
+      <h1 className="mb-1 text-xl font-bold tracking-tight">Понравилось</h1>
+      <p className="mb-4 font-mono text-[11px] text-white/40">
         Локальный список на этом устройстве — не требует входа в аккаунт AniLiberty
       </p>
 

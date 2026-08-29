@@ -32,19 +32,19 @@ export default function History() {
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-6">
-      <h1 className="mb-4 text-xl font-bold">История просмотра</h1>
+      <h1 className="mb-4 text-xl font-bold tracking-tight">История просмотра</h1>
       {items.length === 0 && <p className="py-16 text-center text-white/40">История пуста</p>}
       <div className="space-y-2">
         {items.filter((item) => item.release && item.release_episode).map((item) => (
           <Link
             key={item.id}
             to={`/title/${item.release.alias || item.release.id}`}
-            className="flex items-center gap-3 rounded-lg bg-white/5 p-2.5 hover:bg-white/10"
+            className="flex items-center gap-3 rounded-xl bg-white/5 p-2.5 transition-colors hover:bg-white/10"
           >
             <img
               src={imageUrl(item.release.poster?.optimized?.thumbnail || item.release.poster?.thumbnail)}
               alt=""
-              className="h-16 w-12 shrink-0 rounded object-cover"
+              className="h-16 w-12 shrink-0 rounded-lg object-cover"
             />
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-medium">{item.release.name.main}</p>
@@ -52,14 +52,14 @@ export default function History() {
                 Серия {item.release_episode.ordinal}
                 {item.release_episode.name ? ` — ${item.release_episode.name}` : ''}
               </p>
-              <p className="text-xs text-white/30">{formatDate(item.updated_at)}</p>
+              <p className="mt-0.5 font-mono text-[10px] text-white/30">{formatDate(item.updated_at)}</p>
             </div>
             {item.is_watched ? (
-              <span className="shrink-0 rounded bg-white/10 px-2 py-0.5 text-[10px] font-semibold text-white/50">
+              <span className="mono-label shrink-0 rounded bg-white/10 px-2 py-1 text-white/50">
                 Просмотрено
               </span>
             ) : (
-              <span className="shrink-0 rounded bg-accent/20 px-2 py-0.5 text-[10px] font-semibold text-accent">
+              <span className="mono-label shrink-0 rounded bg-accent-soft px-2 py-1 text-accent">
                 В процессе
               </span>
             )}

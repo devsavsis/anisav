@@ -1,5 +1,5 @@
 import { useState, FormEvent } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import Logo from './Logo'
 import LoginModal from './LoginModal'
@@ -19,6 +19,7 @@ export default function Header() {
   const [showLogin, setShowLogin] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
   const { user, logout } = useAuth()
 
   function onSubmit(e: FormEvent) {
@@ -28,27 +29,34 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/5 bg-surface/85 backdrop-blur">
+    <header className="glass sticky top-0 z-40 border-b border-white/5">
       <div className="mx-auto flex max-w-7xl items-center gap-6 px-6 py-3">
-        <Link to="/" className="flex items-center gap-2 shrink-0">
+        <Link to="/" className="flex shrink-0 items-center gap-2">
           <Logo />
-          <span className="text-lg font-extrabold tracking-tight">
-            Ani<span className="text-accent">Sav</span>
+          <span className="font-mono text-sm font-bold tracking-widest">
+            ANI<span className="text-accent">SAV</span>
           </span>
         </Link>
 
-        <nav className="hidden gap-5 text-sm font-medium text-white/70 md:flex">
+        <nav className="hidden gap-1 text-sm font-medium text-white/60 md:flex">
           {NAV.map((n) => (
-            <Link key={n.to} to={n.to} className="transition-colors hover:text-white">
-              {n.label}
+            <Link key={n.to} to={n.to} className="relative px-3 py-1.5 transition-colors hover:text-white">
+              {location.pathname === n.to && (
+                <motion.span
+                  layoutId="nav-active"
+                  transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                  className="absolute inset-0 rounded-full bg-white/8"
+                />
+              )}
+              <span className={`relative ${location.pathname === n.to ? 'text-white' : ''}`}>{n.label}</span>
             </Link>
           ))}
           {user && (
             <>
-              <Link to="/lists" className="transition-colors hover:text-white">
+              <Link to="/lists" className="px-3 py-1.5 transition-colors hover:text-white">
                 Мои списки
               </Link>
-              <Link to="/history" className="transition-colors hover:text-white">
+              <Link to="/history" className="px-3 py-1.5 transition-colors hover:text-white">
                 История
               </Link>
             </>
@@ -77,7 +85,7 @@ export default function Header() {
                   className="h-6 w-6 rounded-full object-cover"
                 />
               ) : (
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent text-xs font-bold">
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent-gradient text-xs font-bold">
                   {user.nickname[0]?.toUpperCase()}
                 </span>
               )}
@@ -86,12 +94,12 @@ export default function Header() {
             <AnimatePresence>
               {menuOpen && (
                 <motion.div
-                  initial={{ opacity: 0, y: -6, scale: 0.96 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -6, scale: 0.96 }}
-                  transition={{ duration: 0.15 }}
+                  initial={{ opacity: 0, y: -6, filter: 'blur(4px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, y: -4, filter: 'blur(3px)' }}
+                  transition={{ type: 'spring', duration: 0.35, bounce: 0 }}
                   onMouseLeave={() => setMenuOpen(false)}
-                  className="absolute right-0 top-full z-10 mt-2 w-44 origin-top-right overflow-hidden rounded-lg bg-surface-card shadow-xl"
+                  className="glass absolute right-0 top-full z-10 mt-2 w-44 origin-top-right overflow-hidden rounded-xl border border-white/10 shadow-2xl"
                 >
                   <Link
                     to="/lists"
@@ -112,7 +120,7 @@ export default function Header() {
                       setMenuOpen(false)
                       logout()
                     }}
-                    className="block w-full px-4 py-2 text-left text-sm text-red-400 hover:bg-white/5"
+                    className="block w-full px-4 py-2 text-left text-sm text-accent hover:bg-white/5"
                   >
                     Выйти
                   </button>
@@ -123,7 +131,7 @@ export default function Header() {
         ) : (
           <button
             onClick={() => setShowLogin(true)}
-            className="shrink-0 rounded-full bg-accent px-4 py-1.5 text-sm font-semibold hover:bg-accent-hover"
+            className="shrink-0 rounded-full bg-accent-gradient px-4 py-1.5 text-sm font-semibold transition-transform hover:scale-105"
           >
             Войти
           </button>

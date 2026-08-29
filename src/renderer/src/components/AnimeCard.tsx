@@ -14,9 +14,9 @@ export default function AnimeCard({ release }: { release: Release }) {
   const title = release.name.main
 
   return (
-    <motion.div variants={cardVariants} whileHover={{ y: -6 }} transition={{ type: 'spring', stiffness: 300, damping: 22 }}>
+    <motion.div variants={cardVariants}>
       <Link to={`/title/${release.alias || release.id}`} className="poster-card group block">
-        <div className="aspect-[2/3] w-full overflow-hidden rounded-xl bg-surface-raised shadow-md shadow-black/30 ring-1 ring-white/5">
+        <div className="aspect-[2/3] w-full overflow-hidden rounded-xl bg-surface-raised ring-1 ring-white/5">
           {poster && (
             <motion.img
               src={poster}
@@ -33,19 +33,19 @@ export default function AnimeCard({ release }: { release: Release }) {
 
           <div className="absolute left-1.5 top-1.5 flex flex-col gap-1">
             {release.is_ongoing && (
-              <span className="rounded bg-accent px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide shadow">
+              <span className="mono-label rounded bg-accent-gradient px-1.5 py-0.5 text-white shadow">
                 Онгоинг
               </span>
             )}
             {release.age_rating?.is_adult && (
-              <span className="rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-semibold">
+              <span className="mono-label rounded bg-black/70 px-1.5 py-0.5">
                 {release.age_rating.label}
               </span>
             )}
           </div>
 
           {release.episodes_total != null && (
-            <span className="absolute right-1.5 top-1.5 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-medium">
+            <span className="mono-label absolute right-1.5 top-1.5 rounded bg-black/70 px-1.5 py-0.5">
               {release.episodes_total} эп.
             </span>
           )}

@@ -43,8 +43,6 @@ export default function TitleDetail() {
   }, [idOrAlias])
 
   useEffect(() => {
-    // Local progress always applies (no account needed) — account timecodes
-    // (when logged in) are layered on top since they may be synced elsewhere.
     const local = getAllLocalProgress()
     const merged = new Map<string, TimecodeItem>(
       Object.entries(local).map(([id, p]) => [
@@ -116,18 +114,18 @@ export default function TitleDetail() {
           transition={{ duration: 0.35 }}
           className="min-w-0"
         >
-          <h1 className="text-2xl font-extrabold">{release.name.main}</h1>
+          <h1 className="text-2xl font-extrabold tracking-tight">{release.name.main}</h1>
           {release.name.english && (
-            <p className="mt-0.5 text-sm text-white/40">{release.name.english}</p>
+            <p className="mt-0.5 font-mono text-xs text-white/40">{release.name.english}</p>
           )}
 
-          <div className="mt-3 flex flex-wrap gap-2 text-xs">
+          <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
             <Chip>{release.type?.description}</Chip>
             <Chip>{release.year}</Chip>
             <Chip>{release.season?.description}</Chip>
             <Chip>{release.age_rating?.label}</Chip>
-            {release.is_ongoing && <Chip accent>Онгоинг</Chip>}
-            {release.episodes_total != null && <Chip>{release.episodes_total} эп.</Chip>}
+            {release.is_ongoing && <Chip accent mono>Онгоинг</Chip>}
+            {release.episodes_total != null && <Chip mono>{release.episodes_total} эп.</Chip>}
           </div>
 
           <div className="mt-3 flex items-center gap-2">
@@ -203,7 +201,7 @@ export default function TitleDetail() {
                     <motion.div
                       layoutId="episode-active-bg"
                       transition={{ type: 'spring', stiffness: 400, damping: 32 }}
-                      className="absolute inset-0 bg-accent"
+                      className="absolute inset-0 bg-accent-gradient"
                     />
                   )}
                   <div className="relative flex items-center gap-1.5 font-semibold">
@@ -249,7 +247,7 @@ export default function TitleDetail() {
                 </div>
                 <button
                   onClick={() => window.anisav.openExternal(t.magnet)}
-                  className="shrink-0 rounded-full bg-accent px-3 py-1 text-xs font-semibold hover:bg-accent-hover"
+                  className="shrink-0 rounded-full bg-accent-gradient px-3 py-1 text-xs font-semibold transition-transform hover:scale-105"
                 >
                   Magnet
                 </button>
@@ -262,10 +260,20 @@ export default function TitleDetail() {
   )
 }
 
-function Chip({ children, accent }: { children: React.ReactNode; accent?: boolean }) {
+function Chip({
+  children,
+  accent,
+  mono,
+}: {
+  children: React.ReactNode
+  accent?: boolean
+  mono?: boolean
+}) {
   return (
     <span
-      className={`rounded px-2 py-0.5 font-semibold ${accent ? 'bg-accent' : 'bg-white/10 text-white/70'}`}
+      className={`rounded-full px-2.5 py-1 ${mono ? 'font-mono text-[10px] uppercase tracking-widest' : 'font-semibold'} ${
+        accent ? 'bg-accent-gradient text-white' : 'bg-white/10 text-white/70'
+      }`}
     >
       {children}
     </span>

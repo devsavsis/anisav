@@ -31,7 +31,7 @@ export default function WishlistButton({
       transition={{ duration: 0.35 }}
       title={saved ? 'Убрать из понравившегося' : 'Добавить в понравившееся'}
       className={`flex ${dims} items-center justify-center rounded-full transition-colors ${
-        saved ? 'bg-yellow-400/20 text-yellow-400' : 'bg-black/60 text-white/70 hover:bg-black/80'
+        saved ? 'bg-accent-2/20 text-accent-2' : 'bg-black/60 text-white/70 hover:bg-black/80'
       }`}
     >
       <svg

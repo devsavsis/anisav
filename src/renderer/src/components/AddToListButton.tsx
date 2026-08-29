@@ -94,8 +94,8 @@ export default function AddToListButton({ releaseId }: { releaseId: number }) {
           onClick={() => setOpen((v) => !v)}
           disabled={busy}
           whileTap={{ scale: 0.96 }}
-          className={`rounded-full px-4 py-1.5 text-sm font-semibold transition-colors ${
-            collectionType ? 'bg-white/10 hover:bg-white/15' : 'bg-accent hover:bg-accent-hover'
+          className={`rounded-full px-4 py-1.5 text-sm font-semibold transition-transform ${
+            collectionType ? 'bg-white/10 hover:bg-white/15' : 'bg-accent-gradient hover:scale-105'
           }`}
         >
           {collectionType ? LABELS[collectionType] : '+ Добавить в список'}
@@ -103,12 +103,12 @@ export default function AddToListButton({ releaseId }: { releaseId: number }) {
         <AnimatePresence>
           {open && (
             <motion.div
-              initial={{ opacity: 0, y: -6, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -6, scale: 0.96 }}
-              transition={{ duration: 0.15 }}
+              initial={{ opacity: 0, y: -6, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, y: -4, filter: 'blur(3px)' }}
+              transition={{ type: 'spring', duration: 0.3, bounce: 0 }}
               onMouseLeave={() => setOpen(false)}
-              className="absolute left-0 top-full z-10 mt-1 w-44 origin-top overflow-hidden rounded-lg bg-surface-card shadow-xl"
+              className="glass absolute left-0 top-full z-10 mt-1 w-44 origin-top overflow-hidden rounded-xl border border-white/10 shadow-xl"
             >
               {(Object.keys(LABELS) as CollectionType[]).map((t) => (
                 <button
@@ -142,7 +142,7 @@ export default function AddToListButton({ releaseId }: { releaseId: number }) {
         transition={{ duration: 0.3 }}
         title={isFavorite ? 'Убрать из избранного' : 'В избранное'}
         className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
-          isFavorite ? 'bg-accent/20 text-accent' : 'bg-white/5 text-white/50 hover:bg-white/10'
+          isFavorite ? 'bg-accent-soft text-accent' : 'bg-white/5 text-white/50 hover:bg-white/10'
         }`}
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill={isFavorite ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2">
